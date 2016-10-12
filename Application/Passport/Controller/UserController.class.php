@@ -1,29 +1,10 @@
 <?php
-namespace Home\Controller;
+namespace Passport\Controller;
 use Think\Controller;
 class UserController extends CommonController {
-    private $type = array(
-            '1' => '学生',
-            '2' => '老师',
-        );
-    private $status = array(
-            '0' => '默认',
-            '1' => '审核',
-            '-1'=> '删除',
-        );
-    public function test(){
-        var_dump($_SESSION);
-    }
+
     public function login () {
     	$this->display();
-    }
-    public function userList(){
-
-        $user = M('user')->where()->select();
-        $this->assign('result',$user);
-        $this->assign('status',$this->status);
-        $this->assign('type',$this->type);
-        $this->display();
     }
 
     public function handleLogin() {
@@ -65,30 +46,9 @@ class UserController extends CommonController {
             $this->error('服务器异常，请稍后重试');
         }
     }
-    public function userEdit(){
-        $id = $_GET['id'];
-        $user = M('user')->where(array('id'=>$id))->find();
-        $this->assign('result',$user);
-        $this->assign('status',$this->status);
-        $this->assign('type',$this->type);
-        $this->display();
-    }
-    public function saveUser(){
-        $id         = $_POST['id'];
-        $user = M('user');
-        $date['password']   = md5($_POST['pwd']);
-        $date['email']      = $_POST['email'];
-        $date['nickname']   = $_POST['nickname'];
-        $date['phone']      = $_POST['phone'];
-        $date['type']       = $_POST['type'];
-        $date['status']     = $_POST['status'];
-        $date['time']       = time();
-        $user->where(array('id'=>$id))->save($date);
-        $this->success('修改完成',U('home/user/userList'));
-
-
-    }
+    
     public function logout() {
         $_SESSION['me'] = array();
+        $this->success('修改完成',U('home/index/index'));
     }
 }

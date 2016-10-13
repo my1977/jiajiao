@@ -49,7 +49,7 @@ class UserController extends CommonController {
         $email = $_POST['email'];
         $user_info = M('user')->where(array('email'=>$email))->find();
         if (is_array($user_info) && !empty($user_info)) {
-            $this->error('用户注册失败，email已存在');
+            _ars('用户注册失败，email已存在',false);
             die();
         }
         $data['email']          = $_POST['email'];
@@ -59,9 +59,9 @@ class UserController extends CommonController {
         $data['create_time']    = time();
     	$id = M('user')->add($data);
         if ($id>0) {
-            $this->success('注册完成，请等待审核',U('home/user/test'));
+            _ars('注册完成，请等待审核',true);
         } else {
-            $this->error('服务器异常，请稍后重试');
+            _ars('服务器异常，请稍后重试',false);
         }
     }
   

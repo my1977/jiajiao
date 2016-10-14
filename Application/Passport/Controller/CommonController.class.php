@@ -3,7 +3,7 @@ namespace Passport\Controller;
 use Think\Controller;
 class CommonController extends Controller {
     public function _initialize(){
-    	$this->checkLogin();
+    	//$this->checkLogin();
     }
 
     public function checkLogin() {

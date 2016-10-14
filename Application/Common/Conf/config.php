@@ -15,7 +15,7 @@ return array(
     'URL_ROUTER_ON'   => true, 
     'URL_ROUTE_RULES'=>array(
         'user/verify' => 'Passport/User/verify',
-        'user/mobileverify' => 'Passport/User/mobileverify',
+        'user/verifymobile' => 'Passport/User/verifymobile',
         'user/register' => 'Passport/User/register',
     ),
 );

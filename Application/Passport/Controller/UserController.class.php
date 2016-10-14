@@ -24,9 +24,9 @@ class UserController extends CommonController {
             $this->error('登录失败，用户信息不存在');
         }
     }
-    public function register(){
-    	$this->display();
-    }
+    //public function register(){
+    //	$this->display();
+    //}
     public function handleRegister(){
         $email = $_POST['email'];
         $user_info = M('user')->where(array('email'=>$email))->find();
@@ -50,5 +50,34 @@ class UserController extends CommonController {
     public function logout() {
         $_SESSION['me'] = array();
         $this->success('修改完成',U('home/index/index'));
+    }
+
+    public function verifymobile() {
+        $mobile = I('post.mobile');
+        _ars('验证码已发送',true);
+    }
+    public function verify() {
+        $mobile = I('post.mobile');
+        $vcode = I('post.vcode');
+        if ($vcode == '1234') {
+            _ars('验证成功',true);
+        }
+        _ars('验证失败',false);
+    }
+    public function register(){
+        $mobile = $_POST['mobile'];
+        $user_info = M('user')->where(array('phone'=>$mobile))->find();
+        if (is_array($user_info) && !empty($user_info)) {
+            _ars('用户注册失败，电话号已存在',false);
+        }
+        $data['password']       = md5($_POST['password']);
+        $data['phone']          = $mobile;
+        $data['create_time']    = time();
+        $id = M('user')->add($data);
+        if ($id>0) {
+            _ars('注册完成，请等待审核',true);
+        } else {
+            _ars('服务器异常，请稍后重试',false);
+        }
     }
 }

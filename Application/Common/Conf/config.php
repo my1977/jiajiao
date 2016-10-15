@@ -1,5 +1,5 @@
 <?php
-return array(
+$config = array(
 	//'配置项'=>'配置值'
     'DB_TYPE'   => 'mysql', // 数据库类型
     'DB_HOST'   => 'localhost', // 服务器地址
@@ -11,11 +11,9 @@ return array(
     'DB_PREFIX' => 'zt_', // 数据库表前缀
     'DB_CHARSET'=> 'utf8', // 字符集
     'DB_DEBUG'  =>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
-
-    'URL_ROUTER_ON'   => true, 
-    'URL_ROUTE_RULES'=>array(
-        'user/verify' => 'Passport/User/verify',
-        'user/verifymobile' => 'Passport/User/verifymobile',
-        'user/register' => 'Passport/User/register',
-    ),
 );
+
+//单独配置
+$route_config = include('route.php');       #路由配置
+$config =  array_merge($config,$route_config);
+return $config;

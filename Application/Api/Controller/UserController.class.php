@@ -22,6 +22,7 @@ class UserController extends CommonController {
         if ($user) {
             M('userProfile')->where()->save();
         }
+        _ars('保存成功',true);
        
     }
 }

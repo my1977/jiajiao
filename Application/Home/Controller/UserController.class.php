@@ -46,4 +46,22 @@ class UserController extends CommonController {
         $this->success('修改完成',U('Home/user/test'));
 
     }
+    public function addStudentInfo(){
+        $id = 1;
+        $userinfo = M('user')->where(array('id'=>$id))->find();
+        $school = M('school')->where()->select();
+        $this->assign('userinfo',$userinfo);
+        $this->assign('school',$school);
+        $this->display();
+    }
+    public function saveStudentInfo(){
+        $id   = $_POST['id'];
+        $user_profile  = M('user_profile');
+        $data['student_card_image'] = $_POST['student_card_image'];
+        $data['school']             = $_POST['school'];
+        $data['dept']               = $_POST['dept'];
+        $data['strength']           = $_POST['strength'];
+        $user_profile->where(array('user_id'=>$id))->save($data);
+        $this->success('增加完成',U('Home/user/test'));
+    }
 }

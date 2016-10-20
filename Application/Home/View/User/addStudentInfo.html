@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">	
+	<title></title>
+</head>
+<body>
+<form method="post" action="{:U('Home/user/saveStudentInfo')}">
+	上传照片: <input type="text" name="student_card_image"><br>
+	学校: 
+	<select name="school">
+    <?php foreach($school as $key=>$value) { ?>
+
+        <option value ="{$value['id']}">{$value['name']}</option>  
+                    
+    <?php } ?> 
+    </select><br>
+	系别: <input type="text" name="dept"><br>
+	专业技能: <input type="text" name="strength"><br>
+	<input type="hidden" name="id" value="{$userinfo.id}">
+	<input type="submit" name="">
+</form>
+</body>
+</html>

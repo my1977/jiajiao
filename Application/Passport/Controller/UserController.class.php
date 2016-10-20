@@ -35,13 +35,14 @@ class UserController extends CommonController {
     }
 
     public function verifymobile() {
-        $mobile = I('post.mobile');
+        $mobile = I('get.mobile');
+        $callback = I('get.callback');
         //发送验证码
-        _ars('验证码已发送',true);
+        _ars('验证码已发送',true,$callback);
     }
     public function verify() {
-        $mobile = I('post.mobile');
-        $vcode = I('post.vcode');
+        $mobile = I('get.mobile');
+        $vcode = I('get.vcode');
         //todo 验证码验证
         if ($vcode == '1234') {
             _ars('验证成功',true);

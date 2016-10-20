@@ -1,11 +1,10 @@
 <?php
 
-function _ars($data,$flag,$is_die=true){
+function _ars($data,$flag,$callback,$is_die=true){
 	$result['status'] = $flag;
 	$result['result'] = $data;
-	header('Content-type: application/json');
-	header("Access-Control-Allow-Origin: *");
-	echo json_encode($result);
+	
+	echo $callback.'('.json_encode($result).')';
 	if ($is_die) {
 		die();
 	}

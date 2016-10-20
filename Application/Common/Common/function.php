@@ -1,10 +1,14 @@
 <?php
 
-function _ars($data,$flag,$callback,$is_die=true){
+function _ars($data,$flag,$is_die=true){
 	$result['status'] = $flag;
 	$result['result'] = $data;
-	
-	echo $callback.'('.json_encode($result).')';
+	$callback = I('get.callback','');
+	if ($callback) {
+		echo $callback.'('.json_encode($result).')';
+	} else {
+		echo json_encode($result);
+	}
 	if ($is_die) {
 		die();
 	}

@@ -36,9 +36,8 @@ class UserController extends CommonController {
 
     public function verifymobile() {
         $mobile = I('get.mobile');
-        $callback = I('get.callback');
         //发送验证码
-        _ars('验证码已发送',true,$callback);
+        _ars('验证码已发送',true);
     }
     public function verify() {
         $mobile = I('get.mobile');

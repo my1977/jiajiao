@@ -48,14 +48,14 @@ class UserController extends CommonController {
     }
     public function addStudentInfo(){
         $id = 1;
-        $userinfo = M('user')->where(array('id'=>$id))->find();
         $school = M('school')->where()->select();
-        $this->assign('userinfo',$userinfo);
+        $user_profile = M('user_profile')->where(array('user_id'=>$id))->find();
+        $this->assign('user_profile',$user_profile);
         $this->assign('school',$school);
         $this->display();
     }
     public function saveStudentInfo(){
-        $id   = $_POST['id'];
+        $id   = 1;
         $user_profile  = M('user_profile');
         $data['student_card_image'] = $_POST['student_card_image'];
         $data['school']             = $_POST['school'];

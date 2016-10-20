@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">	
+	<title></title>
+</head>
+<body>
+<form method="post" action="{:U('Home/Need/saveNeed')}">
+	标题: <input type="text" name="title"><br>
+	简介：<input type="description" name="description"><br>
+	省: <input type="text" name="provice_id"><br>
+	市: <input type="text" name="city_id"><br>
+	区: <input type="text" name="area_id"><br>
+	家庭地址: <input type="text" name="address"><br>
+	孩子年级: 
+	<select name="grade">
+    <?php foreach($grade as $key=>$value) { ?>
+
+        <option value ="{$value['id']}">{$value['grade']}</option>  
+                    
+    <?php } ?> 
+    </select><br>
+    孩子学校: 
+	<select name="school">
+    <?php foreach($school as $key=>$value) { ?>
+
+        <option value ="{$value['id']}">{$value['name']}</option>  
+                    
+    <?php } ?> 
+    </select><br>
+    科目:  
+	<select name="subject">
+    <?php foreach($subject as $key=>$value) { ?>
+
+        <option value ="{$value['id']}">{$value['subject']}</option>  
+                    
+    <?php } ?> 
+    </select><br>
+    联系方式: <input type="text" name="phone"><br>
+	特殊要求: <input type="text" name="remark"><br>
+	<br>
+	<input type="submit" name="">
+</form>
+</body>
+</html>

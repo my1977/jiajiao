@@ -8,4 +8,5 @@ CREATE TABLE `zt_school` (
   `city_id` int(11) NOT NULL DEFAULT '0' COMMENT '市id',
   `area_id` int(11) NOT NULL DEFAULT '0' COMMENT '区域id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `jiajiao`.`zt_school` ADD COLUMN `level` TINYINT DEFAULT 0 NOT NULL COMMENT '学校级别' AFTER `area_id`; 

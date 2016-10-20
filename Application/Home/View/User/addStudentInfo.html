@@ -6,7 +6,7 @@
 </head>
 <body>
 <form method="post" action="{:U('Home/user/saveStudentInfo')}">
-	上传照片: <input type="text" name="student_card_image"><br>
+	上传照片: <input type="text" name="student_card_image" value="<?php echo $user_profile['student_card_image']?>"><br>
 	学校: 
 	<select name="school">
     <?php foreach($school as $key=>$value) { ?>
@@ -15,9 +15,8 @@
                     
     <?php } ?> 
     </select><br>
-	系别: <input type="text" name="dept"><br>
-	专业技能: <input type="text" name="strength"><br>
-	<input type="hidden" name="id" value="{$userinfo.id}">
+	系别: <input type="text" name="dept" value="<?php echo $user_profile['dept']?>"><br>
+	专业技能: <input type="text" name="strength" value="<?php echo $user_profile['strength']?>"><br>
 	<input type="submit" name="">
 </form>
 </body>

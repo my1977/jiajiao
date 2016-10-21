@@ -245,3 +245,5 @@
 		.hide {
 			display:none;
 		}
+		.verify {width:70% !important;}
+		.btn-verify {width:30%;display: inline-block;text-align: center}

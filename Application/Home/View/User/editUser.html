@@ -1,25 +1,62 @@
+<!doctype html>
 <html>
-<head></head>
-<body>
-<form method="post" action="{:U('home/user/saveUser')}">
-    邮箱: <input type="text" name="email" value="<?php echo $userinfo['email']?>"><br>
-    姓名: <input type="text" name="nickname" value="<?php echo $userinfo['nickname']?>"><br>
-    性别：
-    <select name="sex">
-    <?php foreach($sex as $key=>$value) { ?>
+<head>
+<script src="/Public/home/js/jquery.js"></script>
+<link href="/Public/home/css/css.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no" />
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
 
-        <option value ="{$key}">{$value}</option>  
-                    
-    <?php } ?> 
-    </select>
-    住址: <input type="text" name="address" value="<?php echo $user_profile['address']?>"><br>
+<body style="background-color: #f9f9f9;">
+<!--header顶部标题-->
+<div class="header">个人信息修改
+    <div class="header_left" onclick="window.history.go(-1)"><img src="/Public/home/images/return.png"></div>
+</div>
+<form action="/index.php/home/user/saveUser" method="post">
+<!--column详细地址-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="邮箱" type="text" name="email" value="<?php echo $userinfo['email'];?>">
+    <div class="border_bottom"></div>
+</div>
+<!--acreage面积-->
+
+<!--column联系人-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/people.png"></div>
+    <input class="input-text" placeholder="昵称" type="text" name="nickname" value="<?php echo $userinfo['nickname'];?>">
+    <div class="border_bottom"></div>
+</div>
+<!--column电话-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/phone.png"></div>
+    <foreach name="sex" item="vo">
+    <label><input type="radio" name="sex" value="{$key}"<if condition="$key == $user_profile['sex']">checked</if> class="input-radio">{$vo}</label>
+    </foreach>
     
-    <br>
-    身份证号: <input type="text" name="idcard_no" 
-                                value="<?php echo $user_profile['idcard_no']?>">
-    <br>
-    <input type="hidden" name="id" value="{$userinfo.id}">
-    <input type="submit">
+    <div class="border_bottom"></div>
+</div>
+<!--column电话-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/people.png"></div>
+    <input class="input-text" placeholder="地址" type="text" name="address" value="<?php echo $user_profile['address'];?>">
+    <div class="border_bottom"></div>
+</div>
+<!--column电话-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/phone.png"></div>
+    <input class="input-text" placeholder="身份证号" type="text" name="idcard_no" value="<?php echo $user_profile['idcard_no'];?>">
+    <div class="border_bottom"></div>
+</div>
+<!--confirm确认添加-->
+<div class="confirm">确认添加</div>
 </form>
+<script>
+$('.confirm').click(function(){
+    $(this).closest('form').submit(); //jquery 提价表单
+}); 
+</script>
 </body>
 </html>

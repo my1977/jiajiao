@@ -3,12 +3,10 @@ namespace Passport\Controller;
 use Think\Controller;
 class UserController extends CommonController {
 
-    public function login () {
-    	$this->display();
+
+    public function index() {
+        $this->display();
     }
-    //public function register(){
-    //	$this->display();
-    //}
     public function handleRegister(){
         $email = $_POST['email'];
         $user_info = M('user')->where(array('email'=>$email))->find();
@@ -35,13 +33,13 @@ class UserController extends CommonController {
     }
 
     public function verifymobile() {
-        $mobile = I('get.mobile');
+        $mobile = I('request.mobile');
         //发送验证码
         _ars('验证码已发送',true);
     }
     public function verify() {
-        $mobile = I('get.mobile');
-        $vcode = I('get.vcode');
+        $mobile = I('request.mobile');
+        $vcode = I('request.vcode');
         //todo 验证码验证
         if ($vcode == '1234') {
             _ars('验证成功',true);
@@ -49,24 +47,27 @@ class UserController extends CommonController {
         _ars('验证失败',false);
     }
     public function doregister(){
-        $mobile = $_POST['mobile'];
+        $mobile      = I('request.mobile');
+        $password   = I('request.password');
         $user_info = M('user')->where(array('phone'=>$mobile))->find();
         if (is_array($user_info) && !empty($user_info)) {
             _ars('用户注册失败，电话号已存在',false);
         }
-        $data['password']       = md5($_POST['password']);
+        $data['password']       = md5($password);
         $data['phone']          = $mobile;
         $data['create_time']    = time();
         $id = M('user')->add($data);
+
         if ($id>0) {
+             M('user_profile')->add(array('user_id'=>$id));
             _ars('注册完成，请等待审核',true);
         } else {
             _ars('服务器异常，请稍后重试',false);
         }
     }
     public function dologin(){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $email      = I('request.email');
+        $password   = I('request.password');
         $where = array();
         if (strpos($email, '@')) {
             $where['email'] = $email; 
@@ -86,8 +87,8 @@ class UserController extends CommonController {
         }
     }
     public function setPassword () {
-        $user_id = I('post.user_id');
-        $password = I('post.password');
+        $user_id = I('request.user_id');
+        $password = I('request.password');
         $statsu = M('user')->where(array('id'=>$user_id))->save(array('password'=>md5($password)));
         if ($status) {
             _ars('重置成功',true);

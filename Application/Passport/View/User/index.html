@@ -26,14 +26,14 @@
 		<div class="login form" id='login'>
 			<div class="group">
 				<div class="group-ipt email">
-					<input type="text" name="email" id="email" class="ipt" placeholder="邮箱地址" required>
+					<input type="text" name="phone" id="phone" class="ipt" placeholder="手机号码" required>
 				</div>
 				<div class="group-ipt password">
 					<input type="password" name="password" id="password" class="ipt" placeholder="输入您的登录密码" required>
 				</div>
 			</div>
 			<div class="button">
-				<button type="submit" class="login-btn register-btn" id="button">登录</button>
+				<button type="submit" class="login-btn" id="button">登录</button>
 			</div>
 			<div class="remember clearfix">
 				<label class="remember-me"><span class="icon"><span class="zt"></span></span><input type="checkbox" name="remember-me" id="remember-me" class="remember-mecheck" checked>记住我</label>
@@ -46,17 +46,17 @@
 		<div class="register form hide" id='register'>
 			<div class="group">
 				<div class="group-ipt email">
-					<input type="email" name="email" id="email" class="ipt" placeholder="邮箱地址" required>
+					<input type="phone" name="phone" id="re_phone" class="ipt" placeholder="手机号" required>
 				</div>
 				<div class="group-ipt user">
-					<input type="text" name="user" id="user" class="ipt" placeholder="选择一个用户名" required>
+					<input type="text" name="verify" id="re_verify" class="ipt verify" placeholder="请输入短信验证码" required><span class='btn-verify'>点击获取</span>
 				</div>
 				<div class="group-ipt password">
-					<input type="password" name="password" id="password" class="ipt" placeholder="设置登录密码" required>
+					<input type="password" name="password" id="re_password" class="ipt" placeholder="设置登录密码" required>
 				</div>
 			</div>
 			<div class="button">
-				<button type="submit" class="login-btn register-btn" id="button">注册</button>
+				<button type="submit" class="register-btn" id="button">注册</button>
 			</div>
 		</div>
 	</div>
@@ -72,27 +72,41 @@
 <script>
 
 	$(".login-btn").click(function(){
-		var email = $("#email").val();
+		var phone = $("#phone").val();
 		var password = $("#password").val();
-		var verify = $("#verify").val();
-		// $.ajax({
-		// url: 'http://www.zrong.me/home/index/userLogin',
-		// type: 'post',
-		// jsonp: 'jsonpcallback',
-  //       jsonpCallback: "flightHandler",
-		// async: false,
-		// data: {
-		// 	'email':email,
-		// 	'password':password,
-		// 	'verify':verify
-		// },
-		// success: function(data){
-		// 	info = data.status;
-		// 	layer.msg(info);
-		// }
-		// })
+		$.ajax({
+			url: '/index.php/user/login',
+			type: 'post',
+			data: {
+				'email':phone,
+				'password':password,
+			},
+			dataType:"json",
+			success: function(data){
+				console.log(data);
+			}
+		})
 
-	})
+	});
+	$(".register-btn").click(function(){
+		var phone = $("#re_phone").val();
+		var password = $("#re_password").val();
+		var verify = $("#re_verify").val();
+		$.ajax({
+			url: '/index.php/user/register',
+			type: 'post',
+			data: {
+				'mobile':phone,
+				'password':password,
+				'verify':verify
+			},
+			dataType:"json",
+			success: function(data){
+				console.log(data);
+			}
+		})
+
+	});
 	$("#remember-me").click(function(){
 		var n = document.getElementById("remember-me").checked;
 		if(n){

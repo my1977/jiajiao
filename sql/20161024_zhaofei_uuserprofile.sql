@@ -1,0 +1,1 @@
+ALTER TABLE `jiajiao`.`zt_user_profile` ADD COLUMN `icon` VARCHAR(50) NOT NULL COMMENT '头像' AFTER `sex`, ADD COLUMN `remark` VARCHAR(50) NOT NULL COMMENT '特殊要求' AFTER `icon`; 

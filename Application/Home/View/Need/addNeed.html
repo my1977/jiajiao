@@ -1,45 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">	
-	<title></title>
+<script src="/Public/home/js/jquery.js"></script>
+<link href="/Public/home/css/css.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no" />
+<meta charset="utf-8">
+<title>无标题文档</title>
 </head>
-<body>
-<form method="post" action="{:U('Home/Need/saveNeed')}">
-	标题: <input type="text" name="title"><br>
-	简介：<input type="description" name="description"><br>
-	省: <input type="text" name="provice_id"><br>
-	市: <input type="text" name="city_id"><br>
-	区: <input type="text" name="area_id"><br>
-	家庭地址: <input type="text" name="address"><br>
-	孩子年级: 
-	<select name="grade">
+
+<body style="background-color: #f9f9f9;">
+<!--header顶部标题-->
+<div class="header">需求发布
+    <div class="header_left" onclick="window.history.go(-1)"><img src="/Public/home/images/return.png"></div>
+</div>
+<form action="/index.php/Home/Need/saveNeed" method="post">
+<!-- clumn标题 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="标题" type="text" name="title">
+    <div class="border_bottom"></div>
+</div>
+<!-- clumn简介 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="简介" type="text" name="description">
+    <div class="border_bottom"></div>
+</div>
+<!-- clumn区域 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="区域" type="text" name="provice_id">
+    <div class="border_bottom"></div>
+</div>
+<!-- clumn家庭地址 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="家庭地址" type="text" name="address">
+    <div class="border_bottom"></div>
+</div>
+<!-- clumn孩子年级 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/people.png"></div>
+    <select name="grade">
     <?php foreach($grade as $key=>$value) { ?>
 
         <option value ="{$value['id']}">{$value['grade']}</option>  
                     
     <?php } ?> 
     </select><br>
-    孩子学校: 
-	<select name="school">
+    <div class="border_bottom"></div>
+</div>
+<!--column孩子学校-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/people.png"></div>
+    <select name="school">
     <?php foreach($school as $key=>$value) { ?>
 
         <option value ="{$value['id']}">{$value['name']}</option>  
                     
     <?php } ?> 
     </select><br>
-    科目:  
-	<select name="subject">
+    <div class="border_bottom"></div>
+</div>
+<!--column科目-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/people.png"></div>
+    <select name="subject">
     <?php foreach($subject as $key=>$value) { ?>
 
         <option value ="{$value['id']}">{$value['subject']}</option>  
                     
     <?php } ?> 
     </select><br>
-    联系方式: <input type="text" name="phone"><br>
-	特殊要求: <input type="text" name="remark"><br>
-	<br>
-	<input type="submit" name="">
+    <div class="border_bottom"></div>
+</div>
+<!-- clumn联系方式 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="电话" type="text" name="phone">
+    <div class="border_bottom"></div>
+</div>
+<!-- clumn特殊要求 -->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
+    <input class="input-text" placeholder="特殊要求" type="text" name="remark">
+    <div class="border_bottom"></div>
+</div>
+
+<!--confirm确认添加-->
+<div class="confirm">确认添加</div>
 </form>
+<script>
+$('.confirm').click(function(){
+    $(this).closest('form').submit(); //jquery 提价表单
+}); 
+</script>
 </body>
 </html>

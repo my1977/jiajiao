@@ -38,6 +38,7 @@ class UserController extends CommonController {
         $user_data['email']      = $_POST['email'];
         $user_data['nickname']   = $_POST['nickname'];
         $user_data['time']       = time();
+        $user_data['type']       = 1;
         $profile_data['sex']     = $_POST['sex'];
         $profile_data['idcard_no']     = $_POST['idcard_no'];
         $profile_data['address'] = $_POST['address'];
@@ -56,12 +57,49 @@ class UserController extends CommonController {
     }
     public function saveStudentInfo(){
         $id   = $_SESSION['me']['id'];
+        $user          = M('user');
         $user_profile  = M('user_profile');
         $data['student_card_image'] = $_POST['student_card_image'];
         $data['school']             = $_POST['school'];
         $data['dept']               = $_POST['dept'];
         $data['strength']           = $_POST['strength'];
+        $data['remark']             = $_POST['remark'];
+        $user_data['type']          = 2;
+        $user->where(array('id'=>$id))->save($user_data);
         $user_profile->where(array('user_id'=>$id))->save($data);
         $this->success('增加完成',U('Home/user/test'));
     }
+    public function teachList(){
+        $user           = M('user')->where(array('type'=>2))->select();
+        $user_profile   = M('user_profile')->where()->select();
+        foreach($user_profile as $key => $value) {
+            $value['user'] = M('user')->where(array('id'=>$value['user_id']))->find();
+            $user_profile[$key] = $value;
+        }
+        $school         = M('school')->where()->select();
+        $this->assign('user_profile',$user_profile);
+        $this->assign('school',$school);
+        $this->assign('user',$user);
+        $this->assign('sex',$this->sex);
+        $this->display();
+    }
+    public function teachInfo(){
+        $id = $_GET['id'];
+        if(!$id){
+            echo $id;
+            $this->error("id error!!",U('home/user/teachList'));
+        }
+        $user_info = M('user')->where(array('id'=>$id))->find();
+        if(!is_array($user_info)||empty($user_info)){
+            $this->error("need error!!",U('home/user/teachList'));
+        }
+        $user_profile=M('user_profile')->where(array('user_id'=>$id))->find();
+        $school = M('school')->where(array('id'=>$user_profile['school']))->find();
+        $this->assign('user_info',$user_info);
+        $this->assign('school',$school);
+        $this->assign('user_profile',$user_profile);
+        $this->assign('sex',$this->sex);
+        $this->display();
+    }
+    
 }

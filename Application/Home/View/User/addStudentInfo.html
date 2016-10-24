@@ -14,7 +14,7 @@
 <div class="header">个人信息修改
     <div class="header_left" onclick="window.history.go(-1)"><img src="/Public/home/images/return.png"></div>
 </div>
-<form action="/index.php/home/user/saveUser" method="post">
+<form action="/index.php/home/user/saveStudentInfo" method="post">
 <!--column详细地址-->
 <div class="column_box">
     <div class="column_img"><img src="/Public/home/images/adrress_2.png"></div>
@@ -41,10 +41,16 @@
     <input class="input-text" placeholder="系别" type="text" name="dept" value="<?php echo $user_profile['dept']?>">
     <div class="border_bottom"></div>
 </div>
-<!--column电话-->
+<!--column专业技能-->
 <div class="column_box">
     <div class="column_img"><img src="/Public/home/images/phone.png"></div>
     <input class="input-text" placeholder="专业技能" type="text" name="strength" value="<?php echo $user_profile['strength']?>">
+    <div class="border_bottom"></div>
+</div>
+<!--column特殊要求-->
+<div class="column_box">
+    <div class="column_img"><img src="/Public/home/images/phone.png"></div>
+    <input class="input-text" placeholder="特殊要求" type="text" name="remark" value="<?php echo $user_profile['remark']?>">
     <div class="border_bottom"></div>
 </div>
 <!--confirm确认添加-->

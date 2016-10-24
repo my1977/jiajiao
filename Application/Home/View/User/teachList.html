@@ -1,0 +1,37 @@
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+        <style>
+            td {padding:10px}
+            .te {color:red}
+        </style>
+    </head>
+    <body>
+        <table border="1px" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="te">id</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>学校</td>
+                <td>特长</td>
+                <td>特殊要求</td>
+                <td class="te">操作</td>
+            </tr>
+            <?php foreach($user_profile as $value) { ?>
+            <tr>
+                <td><?php echo $value['user_id']?></td>
+                <td><?php echo $value['user']['nickname']?></td>
+                <td><?php echo $sex[$value['sex']]?></td>
+                <td><?php echo $value['school']?></td>
+                <td><?php echo $value['strength']?></td>
+                <td><?php echo $value['remark']?></td>             
+                <td>
+                    <a href="{:U('home/user/teachInfo',array('id'=>$value['user_id']))}">查看</a>
+                </td>
+            </tr>
+            <?php } ?>
+        </table>
+    </body>
+</html>

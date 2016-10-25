@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<script src="/Public/home/js/jquery.js"></script>
+<link href="/Public/home/css/css.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no" />
+<title>无标题文档</title>
+<style>
+.right{ height:100%; width:100%; background-color:#f9f9f9; position:absolute;top:0; right:0;}
+
+</style>
+</head>
+
+<body style="background-color: #f9f9f9;">
+<div class="right">
+	<ul>
+     <li>
+         <a href="{:U('passport/user/index')}">登陆</a>
+     </li> 
+     <li>
+         <a href="{:U('home/user/info')}">用户中心</a>
+     </li> 
+     <li>
+         <a href="{:U('home/user/edituser')}">设置用户</a>
+     </li>   
+     <li>
+         <a href="{:U('home/user/addstudentinfo')}">认证用户</a>
+     </li> 
+    </ul>
+</div>
+<include file="Public:footer" />
+</body>
+</html>

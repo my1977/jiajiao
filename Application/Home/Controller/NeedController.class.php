@@ -63,4 +63,26 @@ class NeedController extends CommonController{
     	$this->assign('subject',$subject);
     	$this->display();
 	}
+	public function joinin(){
+		$need_id = $_POST['need_id'];
+		$user_id = $_SESSION['me']['id'];
+		$need_info = M('need')->where(array('id'=>$need_id))->find();
+		if (is_array($need_info) && !empty($need_info)) {
+			$isjoin = M('needdetail')->where(array('teacher_id'=>$user_id,'need_id'=>$need_id))->find();
+			if (is_array($isjoin) && !empty($isjoin)) {
+				echo json_encode(array('status'=>'error','msg'=>'已经报名了'));
+				die();
+			}
+			$data = array();
+			$data['teacher_id'] = $user_id;
+			$data['need_id'] 	= $need_id;
+			$data['auther_id'] 	= $need_info['user_id'];
+			$data['create_time'] 	= time();
+			M('needdetail')->add($data);
+			echo json_encode(array('status'=>'ok','msg'=>'报名成功'));
+		} else {
+			echo json_encode(array('status'=>'error','msg'=>'报名失败'));
+		}
+		
+	}
 } 

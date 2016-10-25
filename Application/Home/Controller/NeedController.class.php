@@ -3,7 +3,6 @@ namespace Home\Controller;
 use Think\Controller;
 class NeedController extends CommonController{
 	public function addNeed(){
-		$id = 1;
         $school = M('school')->where()->select();
         $grade = M('grade')->where()->select();
         $subject = M('subject')->where()->select();
@@ -13,7 +12,6 @@ class NeedController extends CommonController{
         $this->display();
 	}
 	public function saveNeed(){
-		$id = 1;
 		$need = M('need');
 		$data['title'] = $_POST['title'];
 		$data['description'] = $_POST['description'];
@@ -26,22 +24,23 @@ class NeedController extends CommonController{
 		$data['subject_id'] = $_POST['subject'];
 		$data['phone'] = $_POST['phone'];
 		$data['remark'] = $_POST['remark'];
-		$need->where(array('id'=>$id))->add($data);
+		$data['user_id'] = $_SESSION['me']['id'];
+		$need->where()->add($data);
 		$this->success('增加完成',U('Home/user/test'));
 	}
 	public function needList(){
-		$grade = M('grade')->where()->select();
-		$need = M('need')->where()->select();
-		$this->assign('grade',$grade);
-		$this->assign('need',$need);
-		$this->display();
-	}
-	public function search(){
 		$grade = $_POST['grade'];
-		$need = M('need')->where(array('grade_id'=>$grade))->select();
+		if(!empty($grade)){
+			$need = M('need')->where(array('grade_id'=>$grade))->select();
+		}else{
+			$need = M('need')->where()->select();
+		}
 		if(!is_array($need)||empty($need)){
-            $this->error("条件不存在!!",U('home/need/needList'));
+            echo "需求不存在！！";
+            die();
         }
+		$grade = M('grade')->where()->select();
+		$this->assign('grade',$grade);
 		$this->assign('need',$need);
 		$this->display();
 	}

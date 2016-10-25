@@ -15,33 +15,18 @@
                 <td class="te">id</td>
                 <td>标题</td>
                 <td>简介</td>
-                <td>区域</td>
-                <td>家庭住址</td>
                 <td class="te">操作</td>
             </tr>
             <?php foreach($need as $value) { ?>
             <tr>
                 <td><?php echo $value['id']?></td>
                 <td><?php echo $value['title']?></td>
-                <td><?php echo $value['description']?></td>
-                <td><?php echo $value['provice_id']?></td>
-                <td><?php echo $value['address']?></td>           
+                <td><?php echo $value['description']?></td>         
                 <td>
-                    <a href="{:U('home/need/needInfo',array('id'=>$value['id']))}">查看详情</a>
+                    <a href="{:U('home/user/needInfo',array('id'=>$value['id']))}">查看详情</a>
                 </td>
             </tr>
             <?php } ?>
         </table>
-        <form method="post" action="{:U('Home/Need/needList')}">
-                搜索：
-                <select name="grade">
-                <?php foreach($grade as $key=>$value) { ?>
-
-                    <option value ="{$value['id']}">{$value['grade']}</option>  
-                    
-                <?php } ?> 
-                </select>
-                <input type="submit" name="" value="搜索">
-        </form>
     </body>
 </html>

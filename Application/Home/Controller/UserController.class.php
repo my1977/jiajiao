@@ -13,12 +13,7 @@ class UserController extends CommonController {
     public function info() {
         $this->display();
     }
-
-    /**
-        todo 修改当前用户信息 显示表单 
-        暂定修改 邮箱 姓名 性别 住址 身份证号 四个字段
-        user userprofile两个表
-    **/
+    //编辑用户信息
     public function editUser() {
         $id = $_SESSION['me']['id'];
         $userinfo = M('user')->where(array('id'=>$id))->find();
@@ -29,7 +24,6 @@ class UserController extends CommonController {
         $this->display();
 
     }
-
     //保存信息 保存到相应表  具体对应情况 看数据表 
     public function saveUser() {
         $id = $_SESSION['me']['id'];
@@ -47,6 +41,7 @@ class UserController extends CommonController {
         $this->success('修改完成',U('Home/user/test'));
 
     }
+    //添加学生信息
     public function addStudentInfo(){
         $id = $_SESSION['me']['id'];
         $school = M('school')->where()->select();
@@ -100,6 +95,22 @@ class UserController extends CommonController {
         $this->assign('user_profile',$user_profile);
         $this->assign('sex',$this->sex);
         $this->display();
+    }
+    public function needList(){
+        $id = $_SESSION['me']['id'];
+        $need = M('need')->where(array('user_id'=>$id))->select();
+        $this->assign('need',$need);
+        $this->display();
+    }
+    public function needInfo(){
+
+    }
+    public function teacherhandle(){
+        $need = M('need');
+        $needdetail = M('needdetail');
+        $data['status']     =1;
+        $data['teacher_id'] =$_SESSION['me']['id'];
+        $needdetail->where(array('id'=>$id))->add($data);   
     }
     
 }

@@ -8,3 +8,6 @@ ADD COLUMN `start_time` INT DEFAULT 0 NOT NULL COMMENT '开始时间' AFTER `tea
 ADD COLUMN `finish_time` INT DEFAULT 0 NOT NULL COMMENT '结束时间' AFTER `start_time`, 
 ADD COLUMN `create_time` INT DEFAULT 0 NOT NULL AFTER `finish_time`, 
 ADD COLUMN `update_time` INT DEFAULT 0 NOT NULL AFTER `create_time`; 
+
+ALTER TABLE `jiajiao`.`zt_need` 
+CHANGE `phone` `phone` VARCHAR(12) DEFAULT '' NOT NULL COMMENT '联系方式'; 

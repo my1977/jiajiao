@@ -103,14 +103,52 @@ class UserController extends CommonController {
         $this->display();
     }
     public function needInfo(){
+        $id = $_GET['id'];
+        if(!$id){
+            echo $id;
+            $this->error("id error!!",U('home/need/needList'));
+        }
+        $need_info = M('need')->where(array('id'=>$id))->find();
+        if(!is_array($need_info)||empty($need_info)){
+            $this->error("need error!!",U('home/need/needList'));
+        }
+        $school = M('school')->where(array('id'=>$need_info['school_id']))->find();
+        $grade = M('grade')->where(array('id'=>$need_info['grade_id']))->find();
+        $subject = M('subject')->where(array('id'=>$need_info['subject_id']))->find();
+        $needdetail = M('needdetail')->where(array('need_id'=>$id))->select();
+        foreach ($needdetail as $key => $value) {
+            $value['user'] = M('user')->where(array('id'=>$value['teacher_id']))->find();
+            $needdetail[$key] =$value;
+        }
+        //var_dump($needdetail['teacher_id']);
+        $this->assign('need_info',$need_info);
+        $this->assign('school',$school);
+        $this->assign('grade',$grade);
+        $this->assign('subject',$subject);
+        $this->assign('needdetail',$needdetail);
+        $this->display();
+    }
+    public function selectTeacher(){
+        $need_id = $_POST['need_id'];
+        $need_info = M('need')->where(array('id'=>$need_id))->find();
+        if (is_array($need_info) && !empty($need_info)) {
+            $data = array();
+            $data['user_confirm'] = 1;
+            M('need')->where(array('id'=>$need_id))->save($data);
+            echo json_encode(array('status'=>'ok','msg'=>'已同意'));
+        } else {
+            echo json_encode(array('status'=>'error','msg'=>'失败'));
+        }
+    }
+    public function myJoinin(){
+        $id = $_SESSION['me']['id'];
+        $needdetail = M('needdetail')->where(array('teacher_id'=>$id))->select();
+        foreach ($needdetail as $key => $value) {
+            $value['need'] = M('need')->where(array('id'=>$value['need_id']))->find();
+            $needdetail[$key] = $value;
+        }
+        $this->assign('needdetail',$needdetail);
+        $this->display();
 
     }
-    public function teacherhandle(){
-        $need = M('need');
-        $needdetail = M('needdetail');
-        $data['status']     =1;
-        $data['teacher_id'] =$_SESSION['me']['id'];
-        $needdetail->where(array('id'=>$id))->add($data);   
-    }
-    
 }

@@ -10,3 +10,5 @@ CREATE TABLE `jiajiao`.`zt_needdetail`
 ) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
 ALTER TABLE `jiajiao`.`zt_needdetail` 
 CHANGE `user_id` `teacher_id` INT(11) DEFAULT 0 NOT NULL COMMENT '学生id'; 
+ALTER TABLE `jiajiao`.`zt_needdetail` 
+CHANGE `auther_id` `author_id` INT(11) DEFAULT 0 NOT NULL COMMENT '家长id'; 

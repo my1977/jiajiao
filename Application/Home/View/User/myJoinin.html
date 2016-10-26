@@ -22,8 +22,52 @@
                 <td>{$value['need']['id']}</td>
                 <td>{$value['need']['title']}</td>
                 <td>{$value['need']['description']}</td>        
-            </tr>
+            <?php if($value['need']['user_confirm']==1){ ?>
+                <td>
+                    <a class="btn btn-primary agree" href="javascript:;" rel="{$value['need']['id']}">同意</a>
+                    <a class="btn btn-primary finish" href="javascript:;" rel="{$value['need']['id']}">完成</a>
+                </td>
+            <?php }else{?>
+                    <td>未通过
+                    <a class="btn btn-primary finish" href="javascript:;" rel="{$value['need']['id']}">完成</a>
+                    </td>
+            <?php } ?>
             <?php } ?>
         </table>
+    <script type="text/javascript" src="/Public/home/js/jquery.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.agree').click(function(){
+                var need_id = $(this).attr('rel');
+                var data = {need_id:need_id};
+                $.ajax({
+                    url: '{:U("home/user/handleJoinin")}',
+                    data:data,
+                    type:'post',
+                    dataType: "json",
+                    success:function(data){
+                        alert(data.msg);
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            $('.finish').click(function(){
+                var need_id = $(this).attr('rel');
+                var data = {need_id:need_id};
+                $.ajax({
+                    url: '{:U("home/user/teacherFinish")}',
+                    data:data,
+                    type:'post',
+                    dataType: "json",
+                    success:function(data){
+                        alert(data.msg);
+                    }
+                });
+            });
+        });
+    </script>
     </body>
 </html>

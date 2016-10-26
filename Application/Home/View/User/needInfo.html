@@ -80,12 +80,30 @@
                 <td><a href="{:U('home/user/teachInfo',array('id'=>$value['teacher_id']))}">{$value['user']['nickname']}</a>    
                 </td>
                 <td>
-                    <a class="btn btn-primary right agree" href="javascript:;" rel="{$value['need_id']}">确认</a>
+                    <a class="btn btn-primary agree" href="javascript:;" rel="{$value['need_id']}">确认</a>
+                    <a class="btn btn-primary finish" href="javascript:;" rel="{$value['need_id']}">完成</a>
                 </td>>  
             </tr>
             <?php } ?>
     </table>
     <script type="text/javascript" src="/Public/home/js/jquery.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.finish').click(function(){
+                var need_id = $(this).attr('rel');
+                var data = {need_id:need_id};
+                $.ajax({
+                    url: '{:U("home/user/userFinish")}',
+                    data:data,
+                    type:'post',
+                    dataType: "json",
+                    success:function(data){
+                        alert(data.msg);
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         $(function(){
             $('.agree').click(function(){

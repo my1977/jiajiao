@@ -149,6 +149,48 @@ class UserController extends CommonController {
         }
         $this->assign('needdetail',$needdetail);
         $this->display();
-
+    }
+    public function handleJoinin(){
+        $need_id = $_POST['need_id'];
+        $need_info = M('need')->where(array('id'=>$need_id))->find();
+        if (is_array($need_info) && !empty($need_info)) {
+            $data = array();
+            $data['teacher_confirm'] = 1;
+            $data['status'] = 1;
+            M('need')->where(array('id'=>$need_id))->save($data);
+            echo json_encode(array('status'=>'ok','msg'=>'已同意'));
+        } else {
+            echo json_encode(array('status'=>'error','msg'=>'失败'));
+        }
+    }
+    public function teacherFinish(){
+        $need_id = $_POST['need_id'];
+        $need_info = M('need')->where(array('id'=>$need_id))->find();
+        if (is_array($need_info) && !empty($need_info)) {
+            $data = array();
+            $data['teacher_confirm'] = 2;
+            if($need_info['user_confirm']==2){
+                $data['status'] = 2;
+            }
+            M('need')->where(array('id'=>$need_id))->save($data);
+            echo json_encode(array('status'=>'ok','msg'=>'成功'));
+        } else {
+            echo json_encode(array('status'=>'error','msg'=>'失败'));
+        }
+    }
+    public function userFinish(){
+        $need_id = $_POST['need_id'];
+        $need_info = M('need')->where(array('id'=>$need_id))->find();
+        if (is_array($need_info) && !empty($need_info)) {
+            $data = array();
+            $data['user_confirm'] = 2;
+            if($need_info['teacher_confirm']==2){
+                $data['status'] = 2;
+            }
+            M('need')->where(array('id'=>$need_id))->save($data);
+            echo json_encode(array('status'=>'ok','msg'=>'成功'));
+        } else {
+            echo json_encode(array('status'=>'error','msg'=>'失败'));
+        }
     }
 }

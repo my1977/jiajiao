@@ -1,47 +1,37 @@
+<!doctype html>
 <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta charset="utf-8">  
-        <style>
-            td {padding:10px}
-            .te {color:red}
-        </style>
+<head>
+<script src="/Public/home/js/jquery.js"></script>
+<link href="/Public/home/css/css.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no" />
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+    .news{ width:92%; height:105px; background:#fff; position:relative; padding-left:4%; padding-right:4%;}
+    .news h3{ font-size:16px; color:#191919;padding-top:10px; padding-bottom:10px;}
+    .news h3 span{ color:rgb(200,200,200); float:right; }
+    .news p{ color:rgb(200,200,200);}
+</style>
+</head>
 
-    </head>
-    <body>
-        <table border="1px" cellpadding="0" cellspacing="0">
-            <tr>
-                <td class="te">id</td>
-                <td>标题</td>
-                <td>简介</td>
-                <td>区域</td>
-                <td>家庭住址</td>
-                <td class="te">操作</td>
-            </tr>
-            <?php foreach($need as $value) { ?>
-            <tr>
-                <td><?php echo $value['id']?></td>
-                <td><?php echo $value['title']?></td>
-                <td><?php echo $value['description']?></td>
-                <td><?php echo $value['provice_id']?></td>
-                <td><?php echo $value['address']?></td>           
-                <td>
-                    <a href="{:U('home/need/needInfo',array('id'=>$value['id']))}">查看详情</a>
-                </td>
-            </tr>
-            <?php } ?>
-        </table>
-        <form method="post" action="{:U('Home/Need/needList')}">
-                搜索：
-                <select name="grade">
-                <?php foreach($grade as $key=>$value) { ?>
+<body style="background-color: #f9f9f9;">
+<!--header顶部标题-->
+<div class="header">需求列表
+    <div class="header_left" onclick="window.history.go(-1)"><img src="/Public/home/images/return.png"></div>
+</div>
+<?php foreach($need as $value) { ?>
+<div class="news">
+    <h3><a href="{:U('home/need/needInfo',array('id'=>$value['id']))}"><?php echo $value['title']?></a><span><?php echo $value['crate_time']?></span></h3>
+    <p><?php echo $value['description']?></p>
+    <div class="border_bottom"></div>
+</div>
+<?php } ?>
 
-                    <option value ="{$value['id']}">{$value['grade']}</option>  
-                    
-                <?php } ?> 
-                </select>
-                <input type="submit" name="" value="搜索">
-        </form>
-    </body>
+<script>
+$('.confirm').click(function(){
+    $(this).closest('form').submit(); //jquery 提价表单
+}); 
+</script>
+</body>
 </html>
